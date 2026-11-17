@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html>
+<head>
+<style>
+  table { width: 150px; }; td { width: 75px; }
+</style>
+<title>Authenticator</title>
+<link rel="icon" href="/favicon.png">
+</head>
+<body>
+
+<h3>Please login or register</h3>
+
+<p><h4>Login</h4></p>
+
+<table>
+<tr>
+  <td>username:</td>
+  <td><input type="text" id="username_login" name="username_login" size="30"></td>
+  <!-- The long input field will become useful :) -->
+</tr>
+
+<tr>
+  <td>password:</td>
+  <td><input type="password" id="password_login" name="password_login" size="30"></td>
+  <td><input type=button onclick = "password_login_toggle()" id="password_login_toggle_button" value="show"></td>
+</tr>
+<tr>
+  <td><button onclick = "login()">submit</button></td>
+  <td colspan=2><i id="status_login"></i></td>
+</tr>
+</table>
+<p></p>
+
+<h4>Register</h4>
+
+<table>
+<tr>
+  <td>username:</td>
+  <td><input type="text" id="username_register" name="username_register" size="30"></td>
+</tr>
+
+<tr>
+  <td>password:</td>
+  <td><input type="password" id="password_register" name="password_register" size="30"</td>
+  <td><input type=button onclick = "password_register_toggle()" id="password_register_toggle_button" value="show"></td>
+</tr>
+<tr>
+  <td><button onclick = "register()">submit</button></td>
+  <td colspan=2><i id="status_register"></i></td>
+</tr>
+</table>
+
+
+<script>
+// login() and register()
+// ask for username and password, send to server,
+// obtain string showing whether successful or not
+
+async function login() {
+  const data = { 
+    username: document.getElementById("username_login").value,
+    password: document.getElementById("password_login").value
+  }
+  const options = {
+    method: "POST",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify(data)
+  }
+  const response = await fetch("/login", options);
+  const json = await response.json();
+  document.getElementById("status_login").innerHTML = json.loginstatus;
+};
+
+async function register() {
+  const data = { 
+    username: document.getElementById("username_register").value,
+    password: document.getElementById("password_register").value
+  }
+  const options = {
+    method: "POST",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify(data)
+  }
+  const response = await fetch("/register", options);
+  const json = await response.json();
+  document.getElementById("status_register").innerHTML = json.registerstatus;
+};
+
+// password toggling
+
+function password_login_toggle() {
+  if(document.getElementById("password_login").type == "password") {
+    document.getElementById("password_login").type = "text";
+    document.getElementById("password_login_toggle_button").value = "hide";
+  } else {
+    document.getElementById("password_login").type = "password";
+    document.getElementById("password_login_toggle_button").value = "show";
+  };
+};
+
+function password_register_toggle() {
+  if(document.getElementById("password_register").type == "password") {
+    document.getElementById("password_register").type = "text";
+    document.getElementById("password_register_toggle_button").value = "hide";
+  } else {
+    document.getElementById("password_register").type = "password";
+    document.getElementById("password_register_toggle_button").value = "show";
+  };
+};
+
+// clearing input fields
+// function is called when new page is loaded
+
+function clear() {
+  document.getElementById("username_login").value = "";
+  document.getElementById("status_login").innerHTML = "";
+  document.getElementById("username_register").value = "";
+  document.getElementById("status_register").innerHTML = "";
+};
+
+clear();
+</script>
+</body>
+</html>

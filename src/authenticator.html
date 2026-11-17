@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>Authenticator</title>
+<link rel="icon" href="/favicon.png">
+</head>
+<body>
+
+<h3>A "private" password-protected website on user-authentication</h3>
+
+This small website contains typescript programs
+that process passwords. The programs store password hashes in a database.
+The programs are intended for teaching passwords and cryptographic hashing.
+
+<p/>
+
+The four main "private" advices for password-based user-authentication are:
+<ol>
+	<li>Require users to choose passwords of some minimal strength</li>
+	<li>Only store passwords in hashed form</li>
+	<li>Use salts (add a salt to a password before hashing)</li>
+	<li>Hash iteratively to slow down the overall hashing process</li>
+</ol>
+
+These four advices provide a basic level of security;
+however, for strong authentication you should additionally:
+
+<ul> 
+	<li>Use a hash function that is memory-intensive, in addition to cpu-intensive</li>
+	<li>Use two-factor authentication, that is, add a second factor or channel of authentication,
+		in addition to the user password</li>
+</ul>
+
+</body>
+</html>
